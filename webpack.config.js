@@ -2,6 +2,7 @@ const path = require('path');
 
 // Plugins
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -12,13 +13,16 @@ module.exports = {
       host: 'localhost',
       port: 3000,
       server: {
-        baseDir: ['dist']
+        baseDir: ['dist'],
       },
-      files: ['./dist/*']
+      files: ['./dist/*'],
+    }),
+    new CopyPlugin({
+      patterns: [{ from: './res', to: '.' }],
     }),
     new HtmlWebpackPlugin({
-      template: './src/index.html'
-    })
+      template: './src/index.html',
+    }),
   ],
   output: {
     filename: 'main.js',
